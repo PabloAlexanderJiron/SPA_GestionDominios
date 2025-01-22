@@ -1,0 +1,3 @@
+.v-application{
+  background: linear-gradient(rgb(var(--v-theme-gradiente1)), rgb(var(--v-theme-gradiente2))) !important;
+}
