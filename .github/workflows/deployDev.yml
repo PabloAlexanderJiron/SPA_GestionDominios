@@ -11,4 +11,4 @@ jobs:
       - run: echo "🐧 El job esta corriendo en ${{ runner.os }}!"
       - name: Clonar reporsitorio
         uses: actions/checkout@v4
-      - run: echo "💡 El ${{ github.repository }} fue clonado"
+      - run: docker build -t spa_gestion_dominios:latest .
