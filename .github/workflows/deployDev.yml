@@ -6,7 +6,7 @@ on:
 
 jobs:
   CI-CD:
-    runs-on: ubuntu-latest
+    runs-on: vps
     steps:
       - run: echo "🐧 El job esta corriendo en ${{ runner.os }}!"
       - name: Clonar reporsitorio
