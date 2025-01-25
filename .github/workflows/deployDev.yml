@@ -12,4 +12,4 @@ jobs:
       - name: Clonar reporsitorio
         uses: actions/checkout@v4
       - run: docker build -f Dockerfile.dev -t spa_gestion_dominios_dev:latest -t spa_gestion_dominios_dev:$(date +%F_%H-%M-%S) .
-      - run: cd ~/DockerCompose_SistemaDominios && docker-compose -f docker-compose-dev.yml up -d nginx_dev
+      - run: cd ~/DockerCompose_SistemaDominios && docker stop api_gateway_dev && docker remove api_gateway_dev && docker-compose -f docker-compose-dev.yml up -d nginx_dev

@@ -13,7 +13,7 @@
       absolute
       app
       extended
-      text="PRUEBAS"
+      text="DESARROLLO"
     />
   </VApp>
 </template>
