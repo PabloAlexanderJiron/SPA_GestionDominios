@@ -10,4 +10,4 @@ jobs:
     steps:
       - name: Clonar reporsitorio
         uses: actions/checkout@v4
-      - run: docker build -t spa_gestion_dominios:latest .
+      - run: docker build -t spa_gestion_dominios:latest -t spa_gestion_dominios:$(date +%F_%H-%M-%S) .
