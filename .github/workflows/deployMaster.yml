@@ -1,0 +1,13 @@
+name: Deplegar en produccion
+
+on:
+  push:  
+    branches: [master]
+
+jobs:
+  CI-CD:
+    runs-on: vps
+    steps:
+      - name: Clonar reporsitorio
+        uses: actions/checkout@v4
+      - run: docker build -t spa_gestion_dominios:latest -t spa_gestion_dominios:$(date +%F_%H-%M-%S) .
