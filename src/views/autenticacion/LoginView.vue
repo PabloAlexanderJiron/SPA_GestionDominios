@@ -9,7 +9,7 @@
         >
           <VCardText class="px-6 pt-8">
             <VCardTitle class="text-center text-h5">
-              Sistema de Dominios
+              Sistema de Dominios 2.0
             </VCardTitle>
             <VCardSubtitle class="text-center">
               Hola, bienvenido al sistema
