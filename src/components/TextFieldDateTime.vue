@@ -11,7 +11,7 @@
       :label="label"
       append-inner-icon="mdi-calendar-range"
       :rules="rules"
-      :class="class"
+      :class="$props.class"
       :density="density"
     >
       <template #clear="{props}">
@@ -41,18 +41,25 @@ import moment from "moment";
 import { computed, ref } from "vue";
 
 const model = defineModel<string | null>({default: null})
-defineProps({
-  label:{
-    type: String,
-    required: true
-  },
-  rules: Object as ()=> any,
-  density: {
-    type: String as ()=> 'default' | 'comfortable' | 'compact',
-    default: 'default'
-  },
-  class: String
-})
+// defineProps({
+//   label:{
+//     type: String,
+//     required: true
+//   },
+//   rules: Object as ()=> any,
+//   density: {
+//     type: String as ()=> 'default' | 'comfortable' | 'compact',
+//     default: 'default'
+//   },
+//   class: String
+// })
+defineProps<{
+  label: string
+  rules?: any
+  density?: 'default' | 'comfortable' | 'compact'
+  "class"?: string   // 
+}>()
+
 const mostrarDatePicker = ref(false)
 const fechaFormateada = computed(() => model.value ? moment(model.value).format('DD/MM/YYYY') : null)
 const fechaFormateadaDatePicker = computed(() => model.value ? new Date(model.value) : null)

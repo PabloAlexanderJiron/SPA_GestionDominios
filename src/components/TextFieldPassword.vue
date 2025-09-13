@@ -3,7 +3,7 @@
     ref="input"
     v-model="model"
     :label="label"
-    :class="class"
+    :class="$props.class"
     :rules="(rules as any)"
     :type="type"
   >
@@ -25,14 +25,20 @@ const input = ref<VTextField | null>(null)
 const mostrarClave = ref(false)
 const type = ref<'password'|'text'>('password')
 const model = defineModel({required: true})
-defineProps({
-  label: {
-    type: String,
-    required: true
-  },
-  class: String,
-  rules: Array
-})
+// defineProps({
+//   label: {
+//     type: String,
+//     required: true
+//   },
+//   class: String,
+//   rules: Array
+// })
+defineProps<{
+  label: string
+  "class"?: string   
+  rules?: any[]
+}>()
+
 
 const mostarOcultarClave = ()=>{
   mostrarClave.value = !mostrarClave.value;
