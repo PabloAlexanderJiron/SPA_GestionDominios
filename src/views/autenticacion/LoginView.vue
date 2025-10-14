@@ -12,7 +12,7 @@
             Login
             </VCardTitle>
             <VCardSubtitle class="text-center">
-              Hola, bienvenido al sistema 2..0
+              Hola, bienvenido al sistema...
             </VCardSubtitle>
             <VForm
               @submit.prevent="procesarFormulario" 
