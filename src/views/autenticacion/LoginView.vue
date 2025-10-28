@@ -8,7 +8,7 @@
               Login
             </VCardTitle>
             <VCardSubtitle class="text-center">
-              Hola, bienvenido al sistema...
+              Hola, bienvenido al sistema
             </VCardSubtitle>
 
             <!-- Formulario -->
