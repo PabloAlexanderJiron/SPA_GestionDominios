@@ -4,7 +4,7 @@
       <VCol>
         <VCard>
           <VCardTitle>
-            Dominios
+            Licencias de software
           </VCardTitle>
           <VDivider />
           <VCardText>
@@ -13,7 +13,7 @@
                 <VBtn 
                   icon="mdi-plus"
                   class="mb-3"
-                  @click="dominioStore.abrirFormulario()"
+                  @click="licenciaStore.abrirFormulario()"
                 />
               </VCol>
               <VCol cols="auto">
@@ -26,7 +26,7 @@
             </VRow>
             <VRow>
               <VCol>
-                <TablaDominio />
+                <TablaLicencia />
               </VCol>
             </VRow>
           </VCardText>
@@ -36,33 +36,33 @@
     <VDialog
       :model-value="mostrarFormulario"
       persistent
-      max-width="450"
+      max-width="550"
     >
-      <FormDominio />
+      <FormLicencia />
     </VDialog>
   </VContainer>
 </template>
 
 <script setup lang="ts">
-import FormDominio from '@/components/FormDominio.vue';
-import TablaDominio from '@/components/TablaDominio.vue';
-import { useDominioStore } from '@/stores/dominio';
+import FormLicencia from '@/components/FormLicencia.vue';
+import TablaLicencia from '@/components/TablaLicencia.vue';
+import { NombresPorTipoLicencia, useLicenciaStore } from '@/stores';
 import moment from 'moment';
 import { storeToRefs } from 'pinia';
 import * as XLSX from "xlsx";
 
 
-const dominioStore = useDominioStore()
-const {mostrarFormulario, dominios} = storeToRefs(dominioStore)
+const licenciaStore = useLicenciaStore()
+const {mostrarFormulario, licencias} = storeToRefs(licenciaStore)
 
 const exportaExcel = ()=>{
   const archivo = XLSX.utils.book_new()
   const data = XLSX.utils.aoa_to_sheet([
-    ["Id","Dominio","Proveedor","Fecha compra", "Fecha renovacion","Precio"],
-    ...dominios.value.map(x => [x.id, x.direccion, x.proveedor, moment(x.fechaCompra).format('DD-MM-yyyy'), moment(x.fechaRenovacion).format('DD-MM-yyyy'), x.precio])
+    ["Id","Nombre","Proveedor","Tipo","Fecha compra", "Fecha renovacion","Precio","Email soporte"],
+    ...licencias.value.map(x => [x.id, x.nombre, NombresPorTipoLicencia[x.tipo], x.proveedor, moment(x.fechaCompra).format('DD-MM-yyyy'), moment(x.fechaRenovacion).format('DD-MM-yyyy'), x.precio, x.emailSoporte])
   ])
   XLSX.utils.book_append_sheet(archivo, data,"reporte")
-  XLSX.writeFileXLSX(archivo, `Dominios ${Date.now()}.xlsx`)
+  XLSX.writeFileXLSX(archivo, `Licencia de software${Date.now()}.xlsx`)
 }
 </script>
 

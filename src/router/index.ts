@@ -22,10 +22,25 @@ const router = createRouter({
     },
     {
       path: '/app',
-      component: ()=> import('@/views/app/DominioView.vue'),
       meta:{
         protegida: true
-      }
+      },
+      children:[
+        { 
+          path: '',
+          redirect:{name:'DominioRoute'}
+        },
+        { 
+          path: 'dominio',
+          component: ()=> import('@/views/app/DominioView.vue'),
+          name:'DominioRoute'
+        },
+        { 
+          path: 'licencia',
+          component: ()=> import('@/views/app/LicenciaView.vue'),
+          name: 'LicenciaRoute'
+        }
+      ]
     }
   ],
 })
@@ -36,7 +51,7 @@ router.beforeEach(async(to,from,next)=>{
   const {JWT, autenticado} = storeToRefs(autenticacionStore)
   if(to.meta?.protegida && !autenticado.value){
     await autenticacionStore.loginConJWT()
-    autenticado.value ? next('/app') : next()
+    autenticado.value ? next(to.path) : next()
   }else if(!to.meta?.protegida && !autenticado.value && JWT.value){
     await autenticacionStore.loginConJWT()
     autenticado.value ? next('/app') : next()
