@@ -32,7 +32,7 @@
                 v-model="campos.password"
                 label="Contraseña"
                 class="mt-5"
-                :rules="reglas.campoObligatorio"
+                :rules="reglas.password"
               />
               <VBtn 
                 class="mt-5"
@@ -72,7 +72,11 @@ const campos = reactive({
 })
 const form = ref<VForm | null>(null);
 const reglas = {
-  campoObligatorio: [(v:string) => !!v || 'Campo requerido']
+  campoObligatorio: [(v:string) => !!v || 'Campo requerido'],
+  password: [
+    (v:string) => !!v || 'Campo requerido',
+    (v:string) => v.length >= 6 || 'Debe tener al menos 6 caracteres'
+  ]
 }
 const cargando = ref(false)
 
