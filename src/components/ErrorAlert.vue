@@ -3,7 +3,6 @@
     v-if="mensaje"
     title="Error"
     :text="mensaje"
-    :class="$props.class"
     density="compact"
     color="error"
     variant="tonal"
@@ -23,9 +22,6 @@ import { storeToRefs } from 'pinia';
 const errorStore = useErrorStore()
 const {mensaje} = storeToRefs(errorStore)
 
-defineProps<{
-  "class"?: string
-}>()
 </script>
 
 <style scoped>
