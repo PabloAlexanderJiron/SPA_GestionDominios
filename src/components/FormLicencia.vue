@@ -66,10 +66,15 @@
           <VFadeTransition>
             <VCol v-show="campos.incluyeSoporte" cols="8">
               <VTextField 
+                type="email"
                 label="Email soporte"
                 maxLenght="100"
                 class="mb-2"
                 v-model="campos.emailSoporte"
+                :rules="[
+                  v => !!v || 'El email es obligatorio',
+                  v => /.+@.+\..+/.test(v) || 'Ingrese un email válido'
+                ]"
               />
             </VCol>
           </VFadeTransition>
