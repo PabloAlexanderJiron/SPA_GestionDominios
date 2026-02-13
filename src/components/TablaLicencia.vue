@@ -24,6 +24,16 @@
       <template #item.emailSoporte="{item}">
         {{ item.emailSoporte ? item.emailSoporte : item.incluyeSoporte ? 'Si' : 'No' }}
       </template>
+      <template #item.vigencia="{ item }">
+        <VChip
+          :color="obtenerColorVigencia(item.fechaRenovacion)"
+          variant="flat"
+          size="small"
+        >
+          {{ obtenerTextoVigencia(item.fechaRenovacion) }}
+        </VChip>
+      </template>
+
       <template #item.acciones="{item}">
         <VBtn 
           icon="mdi-pencil"
@@ -94,6 +104,7 @@ const cabecera = [
   {title: 'Fecha de renovación', value:'fechaRenovacion', sortable: true },
   {title: 'Precio', value:'precio', sortable: true },
   {title: 'Soporte', value:'emailSoporte', sortable: true },
+  {title: 'Vigencia', key:'vigencia', sortable: true },
   { title: 'Acciones', key:'acciones', sortable: false},
 ]
 
@@ -111,6 +122,41 @@ onMounted(async()=>{
   await licenciaStore.obtenerLicencias()
   cargando.value = false
 })
+
+const obtenerTextoVigencia = (fechaRenovacion: string) => {
+  const hoy = moment().startOf('day')
+  const fecha = moment(fechaRenovacion).startOf('day')
+
+  const diferencia = fecha.diff(hoy, 'days')
+
+  if (diferencia < 0) {
+    return 'Vencido'
+  }
+
+  if (diferencia < 7) {
+    return 'Por vencer'
+  }
+
+  return 'Activo'
+}
+
+const obtenerColorVigencia = (fechaRenovacion: string) => {
+  const hoy = moment().startOf('day')
+  const fecha = moment(fechaRenovacion).startOf('day')
+
+  const diferencia = fecha.diff(hoy, 'days')
+
+  if (diferencia < 0) {
+    return 'error'
+  }
+
+  if (diferencia < 7) {
+    return 'warning'
+  }
+
+  return 'success'
+}
+
 </script>
 
 <style scoped>
