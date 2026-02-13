@@ -18,7 +18,7 @@
           class="mb-2"
           v-model="campos.direccion"
           placeholder="example.com"
-          :rules="reglas.campoObligatorio"
+          :rules="[validarDominio]"
           :readonly="!!dominioActual"
         />
         <VTextField 
@@ -132,6 +132,29 @@ onMounted(()=>{
     campos.fechaRenovacion = dominioActual.value.fechaRenovacion
   }
 })
+
+const validarDominio = (v: string) => {
+  if (!v || !v.trim()) {
+    return 'La dirección del dominio es obligatoria'
+  }
+
+  const dominio = v.trim().toLowerCase()
+
+  // No permitir http:// ni https://
+  if (dominio.startsWith('http://') || dominio.startsWith('https://')) {
+    return 'Ingrese solo el dominio sin http:// o https://'
+  }
+
+  // Regex profesional de dominio
+  const regex = /^(?!-)[a-z0-9-]+(\.[a-z0-9-]+)+$/i
+
+  if (!regex.test(dominio)) {
+    return 'Ingrese un dominio válido (ej: example.com)'
+  }
+
+  return true
+}
+
 </script>
 
 <style scoped>

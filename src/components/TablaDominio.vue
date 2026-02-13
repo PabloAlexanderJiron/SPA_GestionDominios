@@ -24,6 +24,16 @@
           icon="mdi-circle"
         />
       </template>
+      <template #item.vigencia="{ item }">
+        <VChip
+          :color="obtenerColorVigencia(item.fechaRenovacion)"
+          variant="flat"
+          size="small"
+        >
+          {{ obtenerTextoVigencia(item.fechaRenovacion) }}
+        </VChip>
+      </template  mplate>
+
       <template #item.acciones="{item}">
         <VBtn 
           icon="mdi-pencil"
@@ -95,6 +105,7 @@ const cabecera = [
   {title: 'Fecha de renovación', value:'fechaRenovacion', sortable: true },
   {title: 'Precio', value:'precio', sortable: true },
   {title: 'Online', key:'estado', sortable: true },
+  {title: 'Vigencia', key:'vigencia', sortable: true },
   { title: 'Acciones', key:'acciones', sortable: false},
 ]
 const dominiosOnline = ref<{id:number, online:boolean}[]>([])
@@ -130,6 +141,41 @@ onMounted(async()=>{
     })
   }
 })
+
+const obtenerTextoVigencia = (fechaRenovacion: string) => {
+  const hoy = moment().startOf('day')
+  const fecha = moment(fechaRenovacion).startOf('day')
+
+  const diferencia = fecha.diff(hoy, 'days')
+
+  if (diferencia < 0) {
+    return 'Vencido'
+  }
+
+  if (diferencia < 7) {
+    return 'Por vencer'
+  }
+
+  return 'Activo'
+}
+
+const obtenerColorVigencia = (fechaRenovacion: string) => {
+  const hoy = moment().startOf('day')
+  const fecha = moment(fechaRenovacion).startOf('day')
+
+  const diferencia = fecha.diff(hoy, 'days')
+
+  if (diferencia < 0) {
+    return 'error'   // rojo
+  }
+
+  if (diferencia < 7) {
+    return 'warning' // amarillo
+  }
+
+  return 'success'   // verde
+}
+
 </script>
 
 <style scoped>
