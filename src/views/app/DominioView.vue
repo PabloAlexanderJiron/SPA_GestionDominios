@@ -4,7 +4,7 @@
       <VCol>
         <VCard>
           <VCardTitle>
-            Dominios
+            Dominios Loja
           </VCardTitle>
           <VDivider />
           <VCardText>
