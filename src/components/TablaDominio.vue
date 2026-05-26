@@ -173,7 +173,7 @@ const obtenerColorVigencia = (fechaRenovacion: string) => {
     return 'warning' // amarillo
   }
 
-  return 'success'   // verde
+  return 'success'   // verde #ff9800
 }
 
 </script>
